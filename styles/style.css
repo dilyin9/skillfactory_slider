@@ -238,7 +238,7 @@ footer {
   margin-left: 42px;
   height: 482px;
   width: 679px;
-  background-image: url("/images/section2_image.png");
+  /* background-image: url("/images/section2_image.png"); */
   background-size: cover;
 }
 .section2_pagination {
@@ -1012,7 +1012,7 @@ background: linear-gradient(180deg, rgba(24, 24, 24, 0.9) 3.47%, rgba(24, 24, 24
     justify-content: space-between;
     align-items: center;
     height: 241.35px;
-    background-image: url('/images/section2_mobile.png');
+    background-image: url('/images/section2_mobile.png'); */
     background-size: cover;
     background-repeat: no-repeat;
   }
