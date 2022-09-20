@@ -15,7 +15,7 @@ function init() {
   initImage();
   initArrows();
 }
-
+//инициализация точек
 function initDots(length) {
   let mainElement = document.querySelector(".pagination_list");
   for (let i =0; i < length; i++) {
@@ -28,6 +28,7 @@ function initDots(length) {
     })
   } )
 }
+//инициализация табов
 function initTabs(length,names) {
   let mainElement = document.querySelector(".section2_menu");
   for (let i = 0; i < length; i++) {
@@ -40,6 +41,7 @@ function initTabs(length,names) {
     })
   })
 }
+//инициализация текстовых элементов
 function initText() {
   let firstBlock = document.querySelector(".cityText");
   let secondBlock = document.querySelector(".apartmentText");
@@ -54,11 +56,12 @@ function initText() {
   thirdBlock.insertAdjacentHTML("beforeend", thirdBlock_text);
   fourthBlock.insertAdjacentHTML("beforeend", fourthBlock_text);
 }
-
+//инициализация изображения
 function initImage(){
   let imageBlock = document.querySelector(".section2_image");
   imageBlock.style["background-image"] = `url("${images[0]}")`;
 }
+//инициализация стрелок
 function initArrows() {
   let mainElement = document.querySelector(".section2_pagination")
   mainElement.querySelector(".left_arrow_button").addEventListener('click', () => {
@@ -69,25 +72,26 @@ function initArrows() {
   })
   
 }
+// смена изображения
 function changeImage(index){
   let imageBlock = document.querySelector(".section2_image");
   imageBlock.style["background-image"] = `url("${images[index]}")`;
 }
 
-
+// смена активной точки
 function changeDotSelection(index) {
   let mainElement = document.querySelector(".pagination_list");
+  let mainElement2 = document.querySelector(".section2_menu");
   try {
     let selectedItem = mainElement.querySelector(".active_dot");
     if (selectedItem.dataset.index !== index) {
       mainElement.querySelector(".active_dot").classList.remove("active_dot");
       mainElement.querySelector(`[data-index='${index}']`).classList.add("active_dot");
-      changeImage(index)
-      changeTabSelection(index)
-      changeText(index)
-      currentIndex = index;
-      console.log(currentIndex);
-      return
+      mainElement2.querySelector(".tab-selected").classList.remove("tab-selected");
+      mainElement2.querySelector(`[data-index='${index}']`).classList.add("tab-selected");
+      changeImage(index);
+      changeText(index);
+      changeCurrentIndex(+index);
     }
   }
   catch(e) {
@@ -98,25 +102,27 @@ function changeDotSelection(index) {
 function changeCurrentIndex(index) {
   currentIndex = index;
 }
-
+// смена активного таба
 function changeTabSelection(index) {
   let mainElement = document.querySelector(".section2_menu");
+  let mainElement2 = document.querySelector(".pagination_list");
   try {
     let selectedItem = mainElement.querySelector(".tab-selected");
     if (selectedItem.dataset.index !== index) {
       mainElement.querySelector(".tab-selected").classList.remove("tab-selected");
       mainElement.querySelector(`[data-index='${index}']`).classList.add("tab-selected");
+      mainElement2.querySelector(".active_dot").classList.remove("active_dot");
+      mainElement2.querySelector(`[data-index='${index}']`).classList.add("active_dot");
       changeImage(index);
-      changeDotSelection(index)
-      changeText(index)
-      currentIndex = index;
-      return
+      changeText(index);
+      changeCurrentIndex(+index);
     }
   }
   catch(e) {
     return e
   }
 }
+// смена текстовых полей
 function changeText(index) {
   let firstBlock = document.querySelector(".cityText");
   firstBlock.querySelector(".section2_block_text").innerHTML = cities[index];
@@ -125,34 +131,35 @@ function changeText(index) {
   let thirdBlock = document.querySelector(".repairTime");
   thirdBlock.querySelector(".section2_block_text").innerHTML = repair_time[index];
 }
-
+// клик по стрелке назад
 function leftArrowClicked(index, length) {
   if (index === 0 ) {
-      changeCurrentIndex(length - 1)
+      changeCurrentIndex(length - 1);
       changeImage(currentIndex);
-      changeDotSelection(currentIndex)
-      changeText(currentIndex)
+      changeDotSelection(currentIndex);
+      changeText(currentIndex);
   }
   else {
-    changeCurrentIndex(index -1)
+    changeCurrentIndex(index -1);
     changeImage(currentIndex);
     changeDotSelection(currentIndex);
     changeText(currentIndex);
   }
   return
 }
+// клик по стрелке вперед
 function rightArrowClicked(index,length) {
   if (index === (length-1)) {
-    changeCurrentIndex(0)
+    changeCurrentIndex(0);
     changeImage(currentIndex);
-    changeDotSelection(currentIndex)
-    changeText(currentIndex)
+    changeDotSelection(currentIndex);
+    changeText(currentIndex);
   }
   else {
-    changeCurrentIndex(index + 1)
+    changeCurrentIndex(index + 1);
     changeImage(currentIndex);
-    changeDotSelection(currentIndex)
-    changeText(currentIndex)
+    changeDotSelection(currentIndex);
+    changeText(currentIndex);
   }
   return
 }
